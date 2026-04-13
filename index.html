@@ -1,187 +1,171 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>DCS TOOL SYSTEM</title>
+<title>JANCUKS DCS TOOLKN</title>
 
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Courier+Prime&display=swap" rel="stylesheet">
 
 <style>
 
-body{
-background:#000;
-color:#fff;
-font-family:'VT323',monospace;
+:root {
+--bg: #000;
+--fg: #fff;
+--accent: #fff;
+--glitch-red: #f00;
+--glitch-blue: #0ff;
+}
+
+*{
 margin:0;
-overflow:hidden;
+padding:0;
+box-sizing:border-box
 }
 
-/* GLOBAL BACKGROUND */
-
-body::before{
-content:"";
-position:fixed;
-inset:0;
-background:
-linear-gradient(transparent 95%, rgba(255,255,255,.05) 100%),
-linear-gradient(90deg,transparent 95%, rgba(255,255,255,.05) 100%);
-background-size:3px 3px;
-animation:bgMove 20s linear infinite;
-z-index:-1;
-opacity:.3;
-}
-
-@keyframes bgMove{
-from{transform:translateY(0)}
-to{transform:translateY(100px)}
-}
-
-/* WELCOME */
-
-#welcome{
-position:fixed;
-inset:0;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:#000;
-z-index:9999;
-}
-
-.title{
-font-family:'Press Start 2P';
-font-size:26px;
-margin-bottom:40px;
-}
-
-.enter{
-font-family:'Press Start 2P';
-cursor:pointer;
-animation:blink 1s infinite;
-border:1px solid white;
-padding:15px 30px;
-}
-
-.enter:hover{
-background:white;
-color:black;
-}
-
-@keyframes blink{
-50%{opacity:.4}
-}
-
-/* BOOT */
-
-.boot{
-position:fixed;
-inset:0;
-background:#000;
-padding:30px;
-display:none;
-white-space:pre-line;
-font-size:20px;
-}
-
-/* MENU */
-
-.menu{
-position:fixed;
-inset:0;
-display:none;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-gap:25px;
-}
-
-.menu button{
-padding:15px 40px;
-background:#000;
-color:#fff;
-border:1px solid #fff;
-font-family:'Press Start 2P';
-cursor:pointer;
-width:320px;
-}
-
-.menu button:hover{
-background:#fff;
-color:#000;
-}
-
-/* TOOL */
-
-.tool{
-display:none;
-position:fixed;
-inset:0;
-background:#000;
-overflow:auto;
+body{
+background:var(--bg);
+color:var(--fg);
+font-family:'VT323', monospace;
 padding:20px;
 }
 
-/* BACK */
+/* WELCOME SCREEN */
 
-.back{
+#welcome{
 position:fixed;
-top:10px;
-left:10px;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
 z-index:9999;
-padding:10px 20px;
-background:black;
-color:white;
-border:1px solid white;
-font-family:'Press Start 2P';
-cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
 }
 
-/* LOCK STYLE */
+.welcome-box{
+text-align:center;
+animation:fadeIn 1.5s ease;
+}
 
-.lock textarea{
-width:100%;
-height:160px;
+.welcome-title{
+font-family:'Press Start 2P', cursive;
+font-size:2rem;
+letter-spacing:3px;
+margin-bottom:20px;
+animation:glow 1.5s infinite alternate;
+}
+
+.welcome-sub{
+margin-bottom:30px;
+font-size:18px;
+letter-spacing:3px;
+}
+
+.enter-btn{
+padding:15px 30px;
 background:#000;
-color:#fff;
 border:1px solid #fff;
-padding:10px;
+color:#fff;
+cursor:pointer;
+font-family:'Press Start 2P', cursive;
+}
+
+.enter-btn:hover{
+background:#111;
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 5px #fff }
+to{ text-shadow:0 0 20px #fff }
+}
+
+@keyframes fadeIn{
+from{opacity:0}
+to{opacity:1}
+}
+
+.title{
+font-size:3rem;
+text-align:center;
+letter-spacing:5px;
+color:var(--fg);
+font-family:'Press Start 2P', cursive;
+}
+
+.container{
+background:#111;
+padding:20px;
+border:1px solid #fff;
+margin-top:20px;
+}
+
+.menu{
+display:flex;
+gap:10px;
 margin-bottom:15px;
 }
 
-.lock table{
+textarea,
+input[type=file]{
 width:100%;
-border-collapse:collapse;
-margin-top:15px;
-}
-
-.lock th,.lock td{
-border:1px solid #fff;
-padding:8px;
-}
-
-.lock button{
 background:#000;
 border:1px solid #fff;
 color:#fff;
-padding:8px 15px;
+padding:10px;
+font-family:'Courier Prime', monospace;
+}
+
+button{
+padding:10px 20px;
+background:#000;
+border:1px solid #fff;
+color:#fff;
 cursor:pointer;
+font-family:'Press Start 2P', cursive;
 }
 
-.badge{
-padding:3px 8px;
-border-radius:4px;
+button:hover{
+background:#111;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+td,th{
+border-bottom:1px solid #333;
+padding:5px;
 font-size:12px;
+text-align:center;
 }
 
-.locked{
-background:#a30000;
+.preview{
+max-height:250px;
+overflow:auto;
 }
 
-.change{
-background:#009688;
+.result{
+margin-top:10px;
+border:1px solid #fff;
+padding:10px;
+background:#000;
+}
+
+.copy{
+margin-top:10px;
+}
+
+.tab{
+margin-top:10px
 }
 
 </style>
@@ -191,249 +175,141 @@ background:#009688;
 <body>
 
 <div id="welcome">
-<div class="title">DCS TOOL SYSTEM</div>
-<div class="enter" id="enterBtn">▶ ENTER SYSTEM</div>
+
+<div class="welcome-box">
+
+<h1 class="welcome-title">JANCUKS DCS TOOLKN</h1>
+
+<p class="welcome-sub">ULTRA PRO TOOLKN</p>
+
+<button onclick="enterApp()" class="enter-btn">
+ENTER SYSTEM
+</button>
+
 </div>
 
-<div class="boot" id="boot"></div>
-
-<div class="menu" id="menu">
-<button onclick="openTool('csv')">CSV MARKETING</button>
-<button onclick="openTool('scatter')">SCATTER MAHJONG</button>
-<button onclick="openTool('lock')">LOCK UNLOCK</button>
-<button onclick="openTool('shortcut')">SHORTCUT</button>
 </div>
 
-<div id="toolContainer" class="tool"></div>
+<div class="title">JANCUKS DCS TOOLKN</div>
+
+<div class="container">
+
+<div class="menu">
+<button onclick='showTab("upload")'>UPLOAD CSV</button>
+<button onclick='showTab("manual")'>MANUAL INPUT</button>
+</div>
+
+<div id="upload" class="tab">
+<h3>UPLOAD CSV</h3>
+<input type="file" id="csv">
+<button onclick="loadCSV()">PROSES CSV</button>
+</div>
+
+<div id="manual" class="tab" style="display:none">
+<h3>MANUAL CSV</h3>
+<textarea id="manualCSV" rows="8"></textarea>
+<button onclick="loadManual()">PROSES MANUAL</button>
+</div>
+
+<div class="preview">
+<table id="preview"></table>
+</div>
+
+<h4>PASTE USER ID</h4>
+
+<textarea id="users" rows="6"></textarea>
+
+<button onclick="filter()">FILTER USER</button>
+
+<div id="result" class="result"></div>
+
+<button class="copy" onclick="copy()">COPY HASIL</button>
+
+<textarea id="output" rows="10"></textarea>
+
+</div>
 
 <script>
 
-const welcome = document.getElementById("welcome")
-const boot = document.getElementById("boot")
-const menu = document.getElementById("menu")
-const enterBtn = document.getElementById("enterBtn")
-const toolContainer = document.getElementById("toolContainer")
-
-let entered=false
-
-function enterSystem(){
-
-if(entered) return
-entered=true
-
-welcome.style.display="none"
-boot.style.display="block"
-
-let text=`Booting DCS System...
-Loading Modules...
-Connecting Server...
-Access Granted...`
-
-let i=0
-
-let t=setInterval(()=>{
-
-boot.innerHTML+=text[i]
-i++
-
-if(i>=text.length){
-clearInterval(t)
-
-setTimeout(()=>{
-boot.style.display="none"
-menu.style.display="flex"
-},800)
-
+function enterApp(){
+var w = document.getElementById("welcome");
+w.style.opacity="0";
+setTimeout(()=>w.style.display="none",400);
 }
 
-},20)
+let data=[];
 
+function showTab(t){
+upload.style.display="none";
+manual.style.display="none";
+document.getElementById(t).style.display="block"
 }
-
-enterBtn.onclick=enterSystem
-
-document.addEventListener("keydown",e=>{
-if(e.key==="Enter") enterSystem()
-})
-
-function openTool(name){
-
-menu.style.display="none"
-toolContainer.style.display="block"
-
-if(name==="lock") loadLock()
-else if(name==="csv") loadCSV()
-else if(name==="scatter") loadScatter()
-else comingSoon(name)
-
-}
-
-function backMenu(){
-toolContainer.style.display="none"
-menu.style.display="flex"
-}
-
-function comingSoon(name){
-toolContainer.innerHTML=`
-<button class="back" onclick="backMenu()">BACK</button>
-<h2>${name} Coming Soon</h2>`
-}
-
-/* CSV */
 
 function loadCSV(){
-toolContainer.innerHTML=`
-<button class="back" onclick="backMenu()">BACK</button>
-<iframe src="https://daniel-christo.github.io/marketingresolved/"
-style="width:100%;height:100vh;border:none"></iframe>
-`
+let f=csv.files[0];
+if(!f)return alert("Upload CSV dulu");
+let r=new FileReader;
+r.onload=e=>processData(e.target.result);
+r.readAsText(f)
 }
 
-/* SCATTER */
-
-function loadScatter(){
-toolContainer.innerHTML=`
-<button class="back" onclick="backMenu()">BACK</button>
-<iframe src="https://daniel-christo.github.io/scatter/"
-style="width:100%;height:100vh;border:none"></iframe>
-`
+function loadManual(){
+let t=manualCSV.value;
+if(!t)return alert("Paste data dulu");
+processData(t)
 }
 
-/* LOCK */
+function processData(t){
 
-function loadLock(){
+let r=t.split(/\r?\n/);
+let p=preview;
+p.innerHTML="";
+data=[];
 
-toolContainer.innerHTML=`
+r.forEach((r,i)=>{
 
-<button class="back" onclick="backMenu()">BACK</button>
+if(!r.trim())return;
 
-<div class="lock">
+let c;
 
-<h2>DCS TOOL - LOCKED & PERGANTIAN DATA</h2>
+r.includes("\t")?c=r.split("\t"):
+r.includes(";")?c=r.split(";"):
+r.includes(",")?c=r.split(","):
+c=r.split(/\s{2,}|\t/)
 
-<textarea id="logInput" placeholder="Paste log disini..."></textarea>
+c=c.map(v=>v.replace(/"/g,"").trim());
 
-<button id="processBtn">PROCESS</button>
-<button id="clearBtn">CLEAR</button>
+let tr=document.createElement("tr");
 
-<table>
-<thead>
-<tr>
-<th>No</th>
-<th>User ID</th>
-<th>Kategori</th>
-<th>Detail / Keterangan</th>
-<th>Action</th>
-</tr>
-</thead>
+c.forEach(col=>{
+let td=document.createElement(i?"td":"th");
+td.innerText=col;
+tr.appendChild(td)
+});
 
-<tbody id="resultBody"></tbody>
+p.appendChild(tr)
 
-</table>
+if(i!==0){
 
-<h3>OUTPUT</h3>
+if(c.length>=7){
 
-<textarea id="copyOutput"></textarea>
+data.push({
+date:c[1],
+type:c[2],
+user:c[3],
+coin:c[5]
+})
 
-</div>
+}else if(c.length>=6){
 
-`
-
-initLock()
-
-}
-
-function initLock(){
-
-const logInput  = document.getElementById('logInput');
-const resultBody = document.getElementById('resultBody');
-const processBtn = document.getElementById('processBtn');
-const clearBtn   = document.getElementById('clearBtn');
-const copyOutput = document.getElementById('copyOutput');
-
-function addRow(no,user,kategori,detail,tanggal,staff){
-
-const tr=document.createElement("tr")
-
-tr.innerHTML=`
-<td>${no}</td>
-<td>${user}</td>
-<td>${kategori}</td>
-<td>${detail}</td>
-<td><button class="copy-btn">Copy</button></td>
-`
-
-tr.querySelector(".copy-btn").onclick=()=>{
-
-copyOutput.value=
-`Info ko,
-Staff ${staff}
-Tanggal ${tanggal}
-
-kendala :
-${detail
-.replace(/<br>/g,"\n")
-.replace(/<[^>]+>/g,"")}`
-
-copyOutput.select()
-document.execCommand("copy")
+data.push({
+date:c[0],
+type:c[1],
+user:c[2],
+coin:c[4]
+})
 
 }
-
-resultBody.appendChild(tr)
-
-}
-
-function processLogs(){
-
-resultBody.innerHTML=""
-let no=1
-
-let lines=logInput.value.split("\n")
-
-lines.forEach(line=>{
-
-let parts=line.split("\t")
-
-if(parts.length<6) return
-
-let tanggal=parts[1]
-let staff=parts[2]
-let action=parts[3]
-let detail=parts[4]
-let user=parts[5]
-
-if(/change user info/i.test(action) && /locked/i.test(detail)){
-
-addRow(
-no++,
-user,
-`<span class="badge locked">LOCKED - form kosong</span>`,
-`Locked pada user id <b>${user}</b> dengan keterangan form kosong`,
-tanggal,
-staff
-)
-
-}
-
-if(/change user info/i.test(action) && /bank/i.test(detail) && /=>/.test(detail)){
-
-let bankBefore = (detail.match(/bank\s*:\s*([^=]+)=>/i)||[])[1] || "-"
-let bankAfter  = (detail.match(/bank\s*:[^=]+=>\s*([^,]+)/i)||[])[1] || "-"
-
-let rekBefore = (detail.match(/rek\s*:\s*([^=]+)=>/i)||[])[1] || "-"
-let rekAfter  = (detail.match(/rek\s*:[^=]+=>\s*([^,]+)/i)||[])[1] || "-"
-
-addRow(
-no++,
-user,
-`<span class="badge change">PERGANTIAN DATA REKENING</span>`,
-`Pergantian data pada user id <b>${user}</b><br>
-Sebelumnya : ${bankBefore} / ${rekBefore}<br>
-Sesudahnya : ${bankAfter} / ${rekAfter}`,
-tanggal,
-staff
-)
 
 }
 
@@ -441,14 +317,112 @@ staff
 
 }
 
-processBtn.onclick=processLogs
+function formatDate(d){
 
-clearBtn.onclick=()=>{
-resultBody.innerHTML=""
-logInput.value=""
+if(!d) return getToday()
+
+let x = d.split(" ")[0]
+
+if(x.includes("-")){
+
+let p = x.split("-")
+
+if(p[0].length==4){
+return x
+}else{
+return `${p[2]}-${p[1]}-${p[0]}`
 }
 
 }
+
+return getToday()
+
+}
+
+function filter(){
+
+let u=users.value
+.toLowerCase()
+.split("\n")
+.map(v=>v.trim())
+.filter(v=>v);
+
+let r={};
+
+u.forEach(u=>{
+r[u]={date:getToday(),total:0,list:[]}
+});
+
+data.forEach(d=>{
+
+if(d.type && d.type.toLowerCase().includes("deposit")){
+
+let u=d.user.toLowerCase();
+
+if(r[u]){
+
+let c=parseInt(d.coin.replace(/[^\d]/g,""))||0;
+let a=formatDate(d.date);
+
+r[u].date=a;
+r[u].total+=c;
+r[u].list.push(c.toLocaleString())
+
+}
+
+}
+
+});
+
+let o="";
+
+u.forEach(u=>{
+
+let d=r[u];
+
+if(d.list.length==0){
+
+o+=`${d.date} | ${u} | 0 | Total : 0\n`
+
+}else{
+
+o+=`${d.date} | ${u} | ${d.list.join(" | ")} | Total : ${d.total.toLocaleString()}\n`
+
+}
+
+});
+
+output.value=o;
+result.innerHTML=o.replace(/\n/g,"<br>")
+
+}
+
+function getToday(){
+let d=new Date;
+return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)
+}
+
+function copy(){
+output.select();
+document.execCommand("copy");
+alert("Berhasil di copy")
+}
+
+</script>
+
+<script>
+
+document.addEventListener("contextmenu", function(e){
+e.preventDefault();
+document.body.innerHTML="ACCESS DENIED";
+});
+
+document.addEventListener("keydown", function(e){
+if(e.ctrlKey && e.keyCode == 85){
+e.preventDefault();
+document.body.innerHTML="ACCESS DENIED";
+}
+});
 
 </script>
 
